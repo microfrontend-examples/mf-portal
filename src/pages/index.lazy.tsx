@@ -26,6 +26,7 @@
 import {createLazyFileRoute, useNavigate} from '@tanstack/react-router'
 import {Card, CardContent,} from "@/components/card.tsx";
 import {Fragment} from "react";
+import Placeholder from "/placeholder.svg";
 
 export const Route = createLazyFileRoute('/')({
     component: Index,
@@ -35,37 +36,37 @@ const data = [
     {
         title: "Application 1",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-1'
     },
     {
         title: "Application 2",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-2'
     },
     {
         title: "Application 3",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-3'
     },
     {
         title: "Application 4",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-4'
     },
     {
         title: "Application 5",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-5'
     },
     {
         title: "Application 6",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        image: "/placeholder.svg",
+        image: Placeholder,
         route: '/application-6'
     },
 

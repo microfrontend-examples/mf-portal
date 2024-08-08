@@ -3,6 +3,7 @@ import {routeTree} from './routeTree.gen'
 import {ClerkProvider} from "@clerk/clerk-react";
 import {createRouter, RouterProvider} from "@tanstack/react-router";
 import {StrictMode} from "react";
+import './globals.css'
 
 // Create a new router instance
 const router = createRouter({ routeTree })

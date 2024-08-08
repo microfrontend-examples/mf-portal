@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom/client'
-import './globals.css'
 import {Root} from "@/root.tsx";
 
 // Render the app
