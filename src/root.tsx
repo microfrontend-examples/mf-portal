@@ -1,12 +1,12 @@
 // Import the generated route tree
 import {routeTree} from './routeTree.gen'
-import {ClerkProvider} from "@clerk/clerk-react";
 import {createRouter, RouterProvider} from "@tanstack/react-router";
 import {StrictMode} from "react";
 import './globals.css'
+import {ClerkProvider} from "@clerk/clerk-react";
 
 // Create a new router instance
-const router = createRouter({ routeTree })
+const router = createRouter({routeTree})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -15,18 +15,12 @@ declare module '@tanstack/react-router' {
     }
 }
 
-// Import your publishable key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-if (!PUBLISHABLE_KEY) {
-    throw new Error("Missing Publishable Key")
+export const Root = (props: { clerkPubKey: string }) => {
+    return (
+        <StrictMode>
+            <ClerkProvider publishableKey={props.clerkPubKey} afterSignOutUrl="/">
+                <RouterProvider router={router} basepath='/portal' context={props}/>
+            </ClerkProvider>
+        </StrictMode>
+    )
 }
-
-export const Root = () => (
-    <StrictMode>
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-            <RouterProvider router={router} basepath='/portal' />
-        </ClerkProvider>
-    </StrictMode>
-
-)

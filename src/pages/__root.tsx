@@ -1,13 +1,13 @@
 import {createRootRoute, Outlet, useMatch, useNavigate} from '@tanstack/react-router'
 import {Fragment, useEffect} from "react";
-import {SignedIn, SignedOut, SignIn, useAuth} from "@clerk/clerk-react";
 import Navbar from "@/components/navbar.tsx";
 import {TanStackRouterDevtools} from "@tanstack/router-devtools";
+import {SignedIn, SignedOut, SignIn, useAuth} from "@clerk/clerk-react";
 
 export const Route = createRootRoute({
     component: Page,
     notFoundComponent: () => {
-        if(import.meta.env.DEV) {
+        if (import.meta.env.DEV) {
             return <div className="text-center text-2xl font-semibold text-red-500">
                 This route is for other applications micro frontends to mount their routes.
             </div>
@@ -23,7 +23,7 @@ function Page() {
     const match = useMatch({from: "/", shouldThrow: false})
 
     useEffect(() => {
-        if(isLoaded && !userId && !match) {
+        if (isLoaded && !userId && !match) {
             console.log('Masoooook')
             void navigate({to: "/"})
         }
@@ -37,7 +37,7 @@ function Page() {
                 </div>
             </SignedOut>
             <SignedIn>
-                <ProtectedLayout />
+                <ProtectedLayout/>
             </SignedIn>
         </Fragment>
     )

@@ -5,34 +5,34 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "YOUR_BASE_URL",
-  plugins: [
-    TanStackRouterVite(),
-    viteReact(),
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    base: "http://localhost:4174",
+    plugins: [
+        TanStackRouterVite(),
+        viteReact(),
+    ],
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+        },
     },
-  },
-  build: {
-    chunkSizeWarningLimit: 1600,
-    outDir: 'build',
-    target: 'esnext',
-    rollupOptions: {
-      // react and react-dom are externalized
-      external: ['react', 'react-dom'],
-      input: {
-        index: 'index.html',
-        'mf-portal': 'src/sspa-main.tsx',
-      },
-      output: {
-        assetFileNames: 'assets/[name]-[hash].[ext]',
-        entryFileNames: '[name].js',
-        chunkFileNames: '[hash].js',
-        format: 'system',
-      },
-      preserveEntrySignatures: 'strict',
+    build: {
+        chunkSizeWarningLimit: 1600,
+        outDir: 'build',
+        target: 'esnext',
+        rollupOptions: {
+            // react and react-dom are externalized
+            external: ['react', 'react-dom', 'clerk-react'],
+            input: {
+                index: 'index.html',
+                'mf-portal': 'src/sspa-main.tsx',
+            },
+            output: {
+                assetFileNames: 'assets/[name]-[hash].[ext]',
+                entryFileNames: '[name].js',
+                chunkFileNames: '[hash].js',
+                format: 'system',
+            },
+            preserveEntrySignatures: 'strict',
+        },
     },
-  },
 })
