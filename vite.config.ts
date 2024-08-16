@@ -2,37 +2,36 @@ import {defineConfig} from 'vite'
 import viteReact from '@vitejs/plugin-react'
 import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
 import path from "path";
+import vitePluginSingleSpa from "vite-plugin-single-spa";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-    base: "http://localhost:4174",
-    plugins: [
-        TanStackRouterVite(),
-        viteReact(),
-    ],
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./src"),
-        },
-    },
-    build: {
-        chunkSizeWarningLimit: 1600,
-        outDir: 'build',
-        target: 'esnext',
-        rollupOptions: {
-            // react and react-dom are externalized
-            external: ['react', 'react-dom', 'clerk-react'],
-            input: {
-                index: 'index.html',
-                'mf-portal': 'src/sspa-main.tsx',
+export default defineConfig(({mode}) => {
+    const isDevSpa = mode === 'development-spa';
+
+    return {
+        base: "http://localhost:4174",
+        plugins: [
+            TanStackRouterVite(),
+            viteReact(),
+            vitePluginSingleSpa({
+                type: 'mife',
+                projectId: 'mf-portal',
+                serverPort: 4174,
+                spaEntryPoints: 'src/sspa-main.tsx',
+            }),
+        ],
+        resolve: {
+            alias: {
+                "@": path.resolve(__dirname, "./src"),
             },
-            output: {
-                assetFileNames: 'assets/[name]-[hash].[ext]',
-                entryFileNames: '[name].js',
-                chunkFileNames: '[hash].js',
-                format: 'system',
-            },
-            preserveEntrySignatures: 'strict',
         },
-    },
+        build: {
+            chunkSizeWarningLimit: 1600,
+            outDir: 'build',
+            target: 'esnext',
+        },
+        server: {
+            hmr: !isDevSpa
+        }
+    }
 })
