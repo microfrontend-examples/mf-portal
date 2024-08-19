@@ -6,7 +6,11 @@ import vitePluginSingleSpa from "vite-plugin-single-spa";
 
 // https://vitejs.dev/config/
 export default defineConfig(({mode}) => {
+    // for simultaneous running development, you need disable HMR.
     const isDevSpa = mode === 'development-spa';
+
+    // for create build and can run with parent or standalone.
+    const isBuildSpaStandalone = mode === 'production-spa-standalone';
 
     return {
         base: "http://localhost:4174",
@@ -29,6 +33,14 @@ export default defineConfig(({mode}) => {
             chunkSizeWarningLimit: 1600,
             outDir: 'build',
             target: 'esnext',
+            ...(isBuildSpaStandalone ? {
+                rollupOptions: {
+                    preserveEntrySignatures: 'strict',
+                    input: {
+                        index: 'index.html',
+                    },
+                }
+            } : {}),
         },
         server: {
             hmr: !isDevSpa
