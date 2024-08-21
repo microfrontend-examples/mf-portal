@@ -39,9 +39,7 @@ export default defineConfig(({mode}) => {
                     input: {
                         index: 'index.html',
                     }
-                } : {
-                    external: ['react', 'react-dom', 'clerk-react'],
-                }),
+                } : {}),
             },
         },
         server: {
