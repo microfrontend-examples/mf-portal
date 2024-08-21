@@ -33,14 +33,16 @@ export default defineConfig(({mode}) => {
             chunkSizeWarningLimit: 1600,
             outDir: 'build',
             target: 'esnext',
-            ...(isBuildSpaStandalone ? {
-                rollupOptions: {
-                    preserveEntrySignatures: 'strict',
+            rollupOptions: {
+                preserveEntrySignatures: 'strict',
+                ...(isBuildSpaStandalone ? {
                     input: {
                         index: 'index.html',
-                    },
-                }
-            } : {}),
+                    }
+                } : {
+                    external: ['react', 'react-dom', 'clerk-react'],
+                }),
+            },
         },
         server: {
             hmr: !isDevSpa
