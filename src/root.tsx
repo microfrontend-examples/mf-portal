@@ -1,5 +1,5 @@
 // Import the generated route tree
-import {StrictMode} from "react";
+import {Fragment, StrictMode} from "react";
 import './globals.css'
 import {ClerkProvider} from "@clerk/clerk-react";
 import {BrowserRouter, Route, Routes} from "react-router";
@@ -17,6 +17,7 @@ export const Root = (props: { clerkPubKey: string }) => {
                         <Route element={<Page />}>
                             <Route index element={<Index />} />
                             <Route path="dashboard" element={<About />} />
+                            <Route path="/*" element={<Fragment />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
