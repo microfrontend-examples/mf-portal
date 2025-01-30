@@ -1,11 +1,12 @@
 // Import the generated route tree
-import {Fragment, StrictMode} from "react";
+import {StrictMode} from "react";
 import './globals.css'
 import {ClerkProvider} from "@clerk/clerk-react";
 import {BrowserRouter, Route, Routes} from "react-router";
 import Index from "@/pages/index.tsx";
 import About from "@/pages/dashboard.tsx";
 import {Page} from "@/pages/__root.tsx";
+import Application from "@/pages/applications.tsx";
 
 
 export const Root = (props: { clerkPubKey: string }) => {
@@ -17,7 +18,7 @@ export const Root = (props: { clerkPubKey: string }) => {
                         <Route element={<Page />}>
                             <Route index element={<Index />} />
                             <Route path="dashboard" element={<About />} />
-                            <Route path="/*" element={<Fragment />} />
+                            <Route path="/*" element={<Application />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
