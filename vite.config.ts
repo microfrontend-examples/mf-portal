@@ -1,6 +1,5 @@
 import {defineConfig} from 'vite'
 import viteReact from '@vitejs/plugin-react'
-import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
 import path from "path";
 import vitePluginSingleSpa from "vite-plugin-single-spa";
 
@@ -15,7 +14,6 @@ export default defineConfig(({mode}) => {
     return {
         base: "http://localhost:4174",
         plugins: [
-            TanStackRouterVite(),
             viteReact(),
             vitePluginSingleSpa({
                 type: 'mife',
