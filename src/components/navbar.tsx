@@ -1,4 +1,4 @@
-import {Link} from "@tanstack/react-router";
+import {NavLink} from "react-router";
 import {UserButton} from "@clerk/clerk-react";
 
 const Navbar = () => {
@@ -9,12 +9,12 @@ const Navbar = () => {
                     Acme Inc.
                 </a>
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                    <Link to="/" className="[&.active]:font-bold hover:text-primary">
+                    <NavLink to="/" className="[&.active]:font-bold hover:text-primary">
                         Home
-                    </Link>
-                    <Link to="/dashboard" className="[&.active]:font-bold hover:text-primary">
+                    </NavLink>
+                    <NavLink to="/dashboard" className="[&.active]:font-bold hover:text-primary">
                         Dashboard
-                    </Link>
+                    </NavLink>
                 </nav>
                 <UserButton/>
             </div>

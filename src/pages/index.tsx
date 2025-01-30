@@ -23,14 +23,10 @@
  - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
  **/
 
-import {createLazyFileRoute, useNavigate} from '@tanstack/react-router'
+import {useNavigate} from 'react-router'
 import {Card, CardContent,} from "@/components/card.tsx";
 import {Fragment} from "react";
 import Placeholder from "/placeholder.svg";
-
-export const Route = createLazyFileRoute('/')({
-    component: Index,
-})
 
 const data = [
     {
@@ -72,7 +68,7 @@ const data = [
 
 ]
 
-function Index() {
+export default function index() {
     const navigate = useNavigate();
 
     return (
@@ -83,7 +79,7 @@ function Index() {
             <section id="features" className="py-10 md:py-16">
                 <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2 lg:grid-cols-3 md:px-6">
                     {data.map(({image, description, title, route}, index) => (
-                        <Card key={index} onClick={() => navigate({to: route})} className="cursor-pointer">
+                        <Card key={index} onClick={() => navigate(route)} className="cursor-pointer">
                             <img
                                 src={image}
                                 alt="Feature 1"
