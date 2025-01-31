@@ -13,6 +13,7 @@ export default defineConfig(({mode}) => {
 
     const env = loadEnv(mode, process.cwd(), "");
     return {
+        base: env.BASE_URL,
         preview: {
             port: Number(env.VITE_PORT),
         },
