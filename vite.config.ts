@@ -12,6 +12,9 @@ export default defineConfig(({mode}) => {
     const isBuildSpaStandalone = mode === 'production-spa-standalone';
 
     return {
+        preview: {
+            port: 4174
+        },
         plugins: [
             viteReact(),
             vitePluginSingleSpa({
