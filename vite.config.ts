@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite'
+import {defineConfig, loadEnv} from 'vite'
 import viteReact from '@vitejs/plugin-react'
 import path from "path";
 import vitePluginSingleSpa from "vite-plugin-single-spa";
@@ -11,16 +11,21 @@ export default defineConfig(({mode}) => {
     // for create build and can run with parent or standalone.
     const isBuildSpaStandalone = mode === 'production-spa-standalone';
 
+    const env = loadEnv(mode, process.cwd(), "");
     return {
         preview: {
-            port: 4174
+            port: Number(env.VITE_PORT),
+        },
+        server: {
+            port: Number(env.VITE_PORT),
+            hmr: !isDevSpa
         },
         plugins: [
             viteReact(),
             vitePluginSingleSpa({
                 type: 'mife',
                 projectId: 'mf-portal',
-                serverPort: 4174,
+                serverPort: Number(env.VITE_PORT),
                 spaEntryPoints: 'src/sspa-main.tsx',
             }),
         ],
@@ -41,9 +46,6 @@ export default defineConfig(({mode}) => {
                     }
                 } : {}),
             },
-        },
-        server: {
-            hmr: !isDevSpa
         }
     }
 })
