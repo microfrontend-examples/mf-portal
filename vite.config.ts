@@ -12,7 +12,6 @@ export default defineConfig(({mode}) => {
     const isBuildSpaStandalone = mode === 'production-spa-standalone';
 
     return {
-        base: "http://localhost:4174",
         plugins: [
             viteReact(),
             vitePluginSingleSpa({
