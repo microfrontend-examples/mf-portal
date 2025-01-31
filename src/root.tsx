@@ -13,7 +13,7 @@ export const Root = (props: { clerkPubKey: string }) => {
     return (
         <StrictMode>
             <ClerkProvider publishableKey={props.clerkPubKey} afterSignOutUrl="/">
-                <BrowserRouter basename="portal">
+                <BrowserRouter basename="portalz">
                     <Routes>
                         <Route element={<Page />}>
                             <Route index element={<Index />} />
