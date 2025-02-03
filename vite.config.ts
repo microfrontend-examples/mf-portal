@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite'
+import {defineConfig, loadEnv} from 'vite'
 import viteReact from '@vitejs/plugin-react'
 import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
 import path from "path";
@@ -12,8 +12,15 @@ export default defineConfig(({mode}) => {
     // for create build and can run with parent or standalone.
     const isBuildSpaStandalone = mode === 'production-spa-standalone';
 
+    const env = loadEnv(mode, process.cwd(), "");
     return {
-        base: "http://localhost:4174",
+        server: {
+            hmr: !isDevSpa,
+            port: Number(env.VITE_PORT),
+        },
+        preview: {
+            port: Number(env.VITE_PORT),
+        },
         plugins: [
             TanStackRouterVite(),
             viteReact(),
@@ -21,7 +28,7 @@ export default defineConfig(({mode}) => {
                 type: 'mife',
                 projectId: 'mf-portal',
                 serverPort: 4174,
-                spaEntryPoints: 'src/sspa-main.tsx',
+                spaEntryPoints: 'src/sspa-main.tsx'
             }),
         ],
         resolve: {
@@ -34,16 +41,14 @@ export default defineConfig(({mode}) => {
             outDir: 'build',
             target: 'esnext',
             rollupOptions: {
+                external: ['react', 'react-dom/client'],
                 preserveEntrySignatures: 'strict',
                 ...(isBuildSpaStandalone ? {
                     input: {
                         index: 'index.html',
                     }
                 } : {}),
-            },
-        },
-        server: {
-            hmr: !isDevSpa
+            }
         }
     }
 })
