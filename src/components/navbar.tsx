@@ -3,7 +3,7 @@ import {UserButton} from "@clerk/clerk-react";
 
 const Navbar = () => {
     return (
-        <header className="sticky top-0 z-40 w-full bg-background border-b">
+        <header className="fixed top-0 z-40 w-full bg-background border-b">
             <div className="container flex items-center justify-between h-16 px-4 mx-auto md:px-6">
                 <a href="#" className="text-lg font-bold">
                     Acme Inc.
