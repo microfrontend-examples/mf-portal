@@ -23,13 +23,13 @@
  - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
  **/
 
-import {createLazyFileRoute, useNavigate} from '@tanstack/react-router'
+import {createFileRoute, useNavigate} from '@tanstack/react-router'
 import {Card, CardContent,} from "@/components/card.tsx";
 import {Fragment} from "react";
 import Placeholder from "/placeholder.svg";
 import Main from "@/components/main.tsx";
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createFileRoute('/')({
     component: Index,
 })
 
