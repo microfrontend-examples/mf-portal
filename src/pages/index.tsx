@@ -23,10 +23,15 @@
  - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
  **/
 
-import {useNavigate} from 'react-router'
+import {createLazyFileRoute, useNavigate} from '@tanstack/react-router'
 import {Card, CardContent,} from "@/components/card.tsx";
 import {Fragment} from "react";
 import Placeholder from "/placeholder.svg";
+import Main from "@/components/main.tsx";
+
+export const Route = createLazyFileRoute('/')({
+    component: Index,
+})
 
 const data = [
     {
@@ -68,34 +73,50 @@ const data = [
 
 ]
 
-export default function index() {
+function Index() {
     const navigate = useNavigate();
 
     return (
         <Fragment>
-            <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0 text-center mt-6">
-                Applications
-            </h1>
-            <section id="features" className="py-10 md:py-16">
-                <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2 lg:grid-cols-3 md:px-6">
-                    {data.map(({image, description, title, route}, index) => (
-                        <Card key={index} onClick={() => navigate(route)} className="cursor-pointer">
-                            <img
-                                src={image}
-                                alt="Feature 1"
-                                width={400}
-                                height={300}
-                                className="rounded-t-lg object-cover w-full h-48"
-                                style={{aspectRatio: "400/300", objectFit: "cover"}}
-                            />
-                            <CardContent className="p-6">
-                                <h3 className="text-lg font-semibold">{title}</h3>
-                                <p className="text-muted-foreground">{description}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
+            <Main>
+                <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0 text-center mt-6">
+                    Applications
+                </h1>
+                <section id="features" className="py-10 md:py-16">
+                    <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2 lg:grid-cols-3 md:px-6">
+                        {data.map(({image, description, title, route}, index) => (
+                            <Card key={index} onClick={() => navigate({to: route})} className="cursor-pointer">
+                                <img
+                                    src={image}
+                                    alt="Feature 1"
+                                    width={400}
+                                    height={300}
+                                    className="rounded-t-lg object-cover w-full h-48"
+                                    style={{aspectRatio: "400/300", objectFit: "cover"}}
+                                />
+                                <CardContent className="p-6">
+                                    <h3 className="text-lg font-semibold">{title}</h3>
+                                    <p className="text-muted-foreground">{description}</p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </section>
+            </Main>
+
+            <footer className="bg-background border-t">
+                <div className="container flex items-center justify-between h-16 px-4 mx-auto md:px-6">
+                    <p className="text-sm text-muted-foreground">&copy; 2024 Acme Inc. All rights reserved.</p>
+                    <div className="flex items-center gap-4">
+                        <a href="#" className="text-muted-foreground hover:text-primary">
+                            Privacy Policy
+                        </a>
+                        <a href="#" className="text-muted-foreground hover:text-primary">
+                            Terms of Service
+                        </a>
+                    </div>
                 </div>
-            </section>
+            </footer>
         </Fragment>
     )
 }

@@ -1,5 +1,6 @@
 import {defineConfig, loadEnv} from 'vite'
 import viteReact from '@vitejs/plugin-react'
+import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
 import path from "path";
 import vitePluginSingleSpa from "vite-plugin-single-spa";
 
@@ -13,21 +14,21 @@ export default defineConfig(({mode}) => {
 
     const env = loadEnv(mode, process.cwd(), "");
     return {
-        base: env.BASE_URL,
+        server: {
+            hmr: !isDevSpa,
+            port: Number(env.VITE_PORT),
+        },
         preview: {
             port: Number(env.VITE_PORT),
         },
-        server: {
-            port: Number(env.VITE_PORT),
-            hmr: !isDevSpa
-        },
         plugins: [
+            TanStackRouterVite(),
             viteReact(),
             vitePluginSingleSpa({
                 type: 'mife',
                 projectId: 'mf-portal',
-                serverPort: Number(env.VITE_PORT),
-                spaEntryPoints: 'src/sspa-main.tsx',
+                serverPort: 4174,
+                spaEntryPoints: 'src/sspa-main.tsx'
             }),
         ],
         resolve: {
@@ -40,13 +41,14 @@ export default defineConfig(({mode}) => {
             outDir: 'build',
             target: 'esnext',
             rollupOptions: {
+                external: ['react', 'react-dom/client'],
                 preserveEntrySignatures: 'strict',
                 ...(isBuildSpaStandalone ? {
                     input: {
                         index: 'index.html',
                     }
                 } : {}),
-            },
+            }
         }
     }
 })
