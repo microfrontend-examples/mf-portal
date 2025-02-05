@@ -2,26 +2,23 @@
 import {StrictMode} from "react";
 import './globals.css'
 import {ClerkProvider} from "@clerk/clerk-react";
-import {BrowserRouter, Route, Routes} from "react-router";
-import Index from "@/pages/index.tsx";
-import About from "@/pages/dashboard.tsx";
-import {Page} from "@/pages/__root.tsx";
-import Application from "@/pages/applications.tsx";
+import {createRouter, RouterProvider} from "@tanstack/react-router";
+import {routeTree} from "@/routeTree.gen";
 
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+    interface Register {
+        router: typeof router
+    }
+}
 
 export const Root = (props: { clerkPubKey: string }) => {
     return (
         <StrictMode>
             <ClerkProvider publishableKey={props.clerkPubKey} afterSignOutUrl="/">
-                <BrowserRouter basename="portal">
-                    <Routes>
-                        <Route element={<Page />}>
-                            <Route index element={<Index />} />
-                            <Route path="dashboard" element={<About />} />
-                            <Route path="/*" element={<Application />} />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                <RouterProvider router={router} basepath='/portal' />
             </ClerkProvider>
         </StrictMode>
     )
